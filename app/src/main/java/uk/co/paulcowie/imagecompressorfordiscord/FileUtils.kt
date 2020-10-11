@@ -25,7 +25,6 @@ internal object FileUtils {
             splitFileName(fileName)
         var tempFile = File.createTempFile(splitName[0], splitName[1])
         tempFile = rename(tempFile, fileName)
-        tempFile.deleteOnExit()
         var out: FileOutputStream? = null
         try {
             out = FileOutputStream(tempFile)
