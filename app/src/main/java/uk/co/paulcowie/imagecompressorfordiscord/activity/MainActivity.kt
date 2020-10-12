@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import uk.co.paulcowie.imagecompressorfordiscord.R
 import uk.co.paulcowie.imagecompressorfordiscord.service.CompressionService
+import java.io.FileOutputStream
+import java.nio.file.Files
 
 
 class MainActivity : AppCompatActivity() {

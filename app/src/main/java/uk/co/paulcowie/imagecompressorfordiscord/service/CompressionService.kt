@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.size
@@ -11,11 +12,29 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import uk.co.paulcowie.imagecompressorfordiscord.util.FileUtils
 import java.io.File
+import java.io.FileOutputStream
+import java.nio.file.Files
 
 object CompressionService {
 
     suspend fun compress(context: Context, uri: Uri): File = withContext(Dispatchers.IO) {
-        val compressedImage = Compressor.compress(context, FileUtils.from(context, uri)) {
+        val fileExtension = MimeTypeMap.getSingleton().getExtensionFromMimeType(context.contentResolver.getType(uri))
+
+        val file = context.contentResolver.openInputStream(uri).use { inputStream ->
+            inputStream?.let {
+                Log.i("knkn", "Suffix $fileExtension")
+
+                val file = Files.createTempFile("IMG", ".$fileExtension").toFile()
+
+                FileOutputStream(file).use { fos ->
+                    fos.write(inputStream.readBytes())
+                }
+
+                return@let file
+            }
+        }
+
+        val compressedImage = Compressor.compress(context, file!!) {
             size((7.5 * 1024 * 1024).toLong())
         }
 

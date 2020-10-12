@@ -19,21 +19,11 @@ internal object FileUtils {
     @Throws(IOException::class)
     fun from(context: Context, uri: Uri): File {
         val inputStream = context.contentResolver.openInputStream(uri)
-        val fileName =
-            getFileName(
-                context,
-                uri
-            )
-        val splitName =
-            splitFileName(
-                fileName
-            )
+        val fileName = getFileName(context, uri)
+
+        val splitName = splitFileName(fileName)
         var tempFile = File.createTempFile(splitName[0], splitName[1])
-        tempFile =
-            rename(
-                tempFile,
-                fileName
-            )
+        tempFile = rename(tempFile, fileName)
         var out: FileOutputStream? = null
         try {
             out = FileOutputStream(tempFile)
@@ -97,7 +87,7 @@ internal object FileUtils {
                 Log.d("FileUtil", "Delete old $newName file")
             }
             if (file.renameTo(newFile)) {
-                Log.d("FileUtil", "Rename file to $newName")
+                Log.d("FileUtil", "Rename old name $file file to $newName")
             }
         }
         return newFile
