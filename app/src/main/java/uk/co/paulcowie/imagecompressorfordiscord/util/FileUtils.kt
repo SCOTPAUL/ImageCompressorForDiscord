@@ -1,4 +1,4 @@
-package uk.co.paulcowie.imagecompressorfordiscord
+package uk.co.paulcowie.imagecompressorfordiscord.util
 
 import android.content.Context
 import android.net.Uri
@@ -20,11 +20,20 @@ internal object FileUtils {
     fun from(context: Context, uri: Uri): File {
         val inputStream = context.contentResolver.openInputStream(uri)
         val fileName =
-            getFileName(context, uri)
+            getFileName(
+                context,
+                uri
+            )
         val splitName =
-            splitFileName(fileName)
+            splitFileName(
+                fileName
+            )
         var tempFile = File.createTempFile(splitName[0], splitName[1])
-        tempFile = rename(tempFile, fileName)
+        tempFile =
+            rename(
+                tempFile,
+                fileName
+            )
         var out: FileOutputStream? = null
         try {
             out = FileOutputStream(tempFile)
@@ -32,7 +41,10 @@ internal object FileUtils {
             e.printStackTrace()
         }
         if (inputStream != null) {
-            copy(inputStream, out)
+            copy(
+                inputStream,
+                out
+            )
             inputStream.close()
         }
         out?.close()
