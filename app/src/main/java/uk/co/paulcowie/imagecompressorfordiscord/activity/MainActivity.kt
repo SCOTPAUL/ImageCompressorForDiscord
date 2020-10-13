@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import uk.co.paulcowie.imagecompressorfordiscord.R
-import uk.co.paulcowie.imagecompressorfordiscord.service.CompressionService
-import java.io.FileOutputStream
-import java.nio.file.Files
+import uk.co.paulcowie.imagecompressorfordiscord.service.DiscordService
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,8 +27,13 @@ class MainActivity : AppCompatActivity() {
 
 
             lifecycleScope.launch {
-                val compressedImageFile = CompressionService.compress(this@MainActivity, receivedUri!!)
-                CompressionService.startDiscordActivityForImage(this@MainActivity, compressedImageFile)
+                val compressedImageFile = DiscordService.compress(this@MainActivity, receivedUri!!)
+
+                compressedImageFile?.let {
+                    if(DiscordService.isDiscordInstalled(this@MainActivity)) {
+                        DiscordService.startDiscordActivityForImage(this@MainActivity, compressedImageFile)
+                    }
+                }
             }
         }
 
