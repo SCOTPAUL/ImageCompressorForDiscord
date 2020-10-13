@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Image Compressor For Discord</string>
+    <string name="how_to_use">Send compressed images by sharing them to the Image Compressor in your share dialog</string>
 </resources>
