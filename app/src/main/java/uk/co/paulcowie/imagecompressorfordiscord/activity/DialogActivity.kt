@@ -32,6 +32,8 @@ class DialogActivity : AppCompatActivity() {
                         DiscordService.startDiscordActivityForImage(this@DialogActivity, compressedImageFile)
                     }
                 }
+
+                this@DialogActivity.finish()
             }
         }
     }

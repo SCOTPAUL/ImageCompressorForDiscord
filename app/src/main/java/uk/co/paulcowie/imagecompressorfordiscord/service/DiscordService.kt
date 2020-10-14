@@ -18,7 +18,7 @@ object DiscordService {
     private const val DISCORD_PACKAGE = "com.discord"
 
     suspend fun compress(context: Context, uri: Uri): File? = withContext(Dispatchers.IO) {
-        val fileExtension = MimeTypeMap.getSingleton().getExtensionFromMimeType(context.contentResolver.getType(uri)).let { if(it == "") "tmp" else it }
+        val fileExtension = MimeTypeMap.getSingleton().getExtensionFromMimeType(context.contentResolver.getType(uri)) ?: "tmp"
 
         val file = context.contentResolver.openInputStream(uri).use { inputStream ->
             inputStream?.let {
