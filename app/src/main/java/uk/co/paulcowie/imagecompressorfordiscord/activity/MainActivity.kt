@@ -17,25 +17,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if(intent.action == ACTION_SEND){
-            Log.i(javaClass.name,"Got send intent")
-            Log.i(javaClass.name, "Type was ${intent.type}")
-
-            val receivedUri: Uri? = intent.getParcelableExtra(Intent.EXTRA_STREAM)
-
-            Log.i(javaClass.name, "$receivedUri")
-
-
-            lifecycleScope.launch {
-                val compressedImageFile = DiscordService.compress(this@MainActivity, receivedUri!!)
-
-                compressedImageFile?.let {
-                    if(DiscordService.isDiscordInstalled(this@MainActivity)) {
-                        DiscordService.startDiscordActivityForImage(this@MainActivity, compressedImageFile)
-                    }
-                }
-            }
-        }
-
     }
 }
