@@ -8,3 +8,9 @@ directly to Discord, it will compress an image to under 8MB before taking you to
 view.
 
 This app requires that you have the official Discord app installed on your device.
+
+## Usage
+
+Just share to the Compressor app from your share menu when sending a photo. The app will handle the rest.
+
+![How to use the app from the share menu](https://github.com/SCOTPAUL/ImageCompressorForDiscord/raw/master/app/src/main/res/drawable/how_to_use.png)
